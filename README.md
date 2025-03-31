@@ -1,7 +1,7 @@
 # Webdev_KBTU2025
-👨‍💻 Mardan Saulet
-👨‍💻 Dovletov Darmen
-👨‍💻 Omarov Raiymbek
+👨‍💻 Mardan Saulet  https://github.com/ssss1131
+👨‍💻 Dovletov Darmen  https://github.com/ETOOOOOOCHAAAAAAAAAAI
+👨‍💻 Omarov Raiymbek    https://github.com/Raimbek-pro
 
 ⸻
 
