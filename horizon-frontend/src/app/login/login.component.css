@@ -1,0 +1,81 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #fafafa;
+}
+
+.login-card {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  padding: 40px;
+  width: 400px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  font-size: 14px;
+}
+
+.login-card button {
+  background-color: #3897f0;
+  border: none;
+  color: #fff;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login-card button:enabled:hover {
+  background-color: #318ce7;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: #ff0000;
+  background-color: #ffe6e6;
+}
+
+button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+button[type="submit"]:enabled {
+  background-color: #0866ff;
+  cursor: pointer;
+}
+
+.sign-up {
+  margin-top: 15px;
+}
+
+.sign-up a {
+  color: #00376b;
+  text-decoration: none;
+}
+
+.sign-up a:hover {
+  text-decoration: underline;
+}
