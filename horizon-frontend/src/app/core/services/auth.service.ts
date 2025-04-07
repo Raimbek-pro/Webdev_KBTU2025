@@ -13,7 +13,16 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
-  register(credentials: { username: string, password: string, first_name: string, last_name: string }): Observable<User> {
+  register(credentials: {
+    username: string,
+    password: string,
+    first_name: string,
+    last_name: string
+  }): Observable<User> {
     return this.http.post<User>(this.BASE_URL + '/register', credentials, {withCredentials: true}).pipe();
+  }
+
+  login(credentials: { username: string, password: string }): Observable<string> {
+    return this.http.post<string>(this.BASE_URL + '/login', credentials, {withCredentials:true}).pipe();
   }
 }
