@@ -9,13 +9,15 @@ import {
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {AuthService} from '../core/services/auth.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    RouterLink
   ],
   styleUrls: ['./register.component.css']
 })

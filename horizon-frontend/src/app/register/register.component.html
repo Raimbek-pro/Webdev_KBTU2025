@@ -65,6 +65,10 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    <div class="sign-in">
+      <p>Already have an account? <a routerLink = "/auth/login">Sign in</a></p>
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="registerForm.invalid">Register</button>
   </form>
 </div>
