@@ -1,2 +1,4 @@
 /.idea/
 /horizon-backend/secrets.env
+__pycache__/
+*.pyc
