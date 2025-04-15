@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormGroup, FormControl, Validators, ReactiveFormsModule} from '@angular/forms';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {AuthService} from '../core/services/auth.service';
 import {User} from '../core/models/user';
 import {lastValueFrom} from 'rxjs';
-
+import {Router} from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +17,7 @@ import {lastValueFrom} from 'rxjs';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router:Router) {
   }
 
   ngOnInit(): void {
@@ -32,9 +32,13 @@ export class LoginComponent implements OnInit {
       try {
         const jwt: string = await lastValueFrom(this.authService.login(this.loginForm.value));
         console.log(jwt);
-      } catch (error) {
+        this.router.navigate(['/home'])
+      } 
+      catch (error) {
         console.error(error);
       }
     }
+
   }
+  
 }
