@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
 import { HomeComponent } from './home/home.component';
-
+import { aboutGuard } from './home/home.guard';
 export const routes: Routes = [
   {
     path: 'auth/register',
@@ -14,6 +14,7 @@ export const routes: Routes = [
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate:[aboutGuard]
   }
 ];

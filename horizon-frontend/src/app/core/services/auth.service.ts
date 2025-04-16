@@ -12,6 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
   }
+  isLoggedIn = false;
 
   register(credentials: {
     username: string,
@@ -23,6 +24,8 @@ export class AuthService {
   }
 
   login(credentials: { username: string, password: string }): Observable<string> {
+    this.isLoggedIn=true
     return this.http.post<string>(this.BASE_URL + '/login', credentials, {withCredentials:true}).pipe();
+    
   }
 }

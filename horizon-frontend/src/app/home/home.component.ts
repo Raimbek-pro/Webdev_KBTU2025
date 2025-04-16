@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../core/services/home.service';
 import { Post } from '../core/models/posts';
 import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-home',
   imports: [CommonModule],
