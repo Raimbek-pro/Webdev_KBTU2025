@@ -1,20 +1,18 @@
 import { Routes } from '@angular/router';
-import {RegisterComponent} from './register/register.component';
-import {LoginComponent} from './login/login.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { NewPostComponent } from './new-post/new-post.component';
+import { SearchComponent } from './search/search.component';
+import { ProfileComponent } from './profile/profile.component';
 import { aboutGuard } from './home/home.guard';
+
 export const routes: Routes = [
-  {
-    path: 'auth/register',
-    component: RegisterComponent
-  },
-  {
-    path: 'auth/login',
-    component: LoginComponent
-  },
-  {
-    path: 'home',
-    component: HomeComponent,
-    canActivate:[aboutGuard]
-  }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, canActivate:[aboutGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'new-post', component: NewPostComponent },
+  { path: 'search', component: SearchComponent },
+  { path: 'profile', component: ProfileComponent }
 ];
