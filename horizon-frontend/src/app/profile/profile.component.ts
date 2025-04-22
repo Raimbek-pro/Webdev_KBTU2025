@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { AuthService } from '../core/services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -21,6 +22,9 @@ import { FormsModule } from '@angular/forms';
             <h2>{{username}}</h2>
             <button class="edit-btn" (click)="toggleEditMode()">
               {{isEditMode ? 'Cancel' : 'Edit Profile'}}
+            </button>
+            <button class="logout" (click)="logout()">
+            Logout
             </button>
           </div>
           <div class="stats">
@@ -73,7 +77,7 @@ import { FormsModule } from '@angular/forms';
       width: 150px;
       height: 150px;
     }
-
+    
     .profile-avatar {
       width: 100%;
       height: 100%;
@@ -122,7 +126,14 @@ import { FormsModule } from '@angular/forms';
       font-weight: 600;
       cursor: pointer;
     }
-
+    .logout{
+      background: #f2f2f2;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-weight: 600;
+      cursor: pointer;
+    }
     .stats {
       display: flex;
       gap: 40px;
@@ -188,6 +199,8 @@ import { FormsModule } from '@angular/forms';
   `]
 })
 export class ProfileComponent {
+  constructor(private authService: AuthService, private router:Router) {
+  }
   username = 'username';
   bio = 'This is my bio';
   postsCount = 0;
@@ -214,5 +227,9 @@ export class ProfileComponent {
       };
       reader.readAsDataURL(file);
     }
+  }
+  logout(){
+    this.authService.logout()
+    this.router.navigate(['/login']);
   }
 } 
