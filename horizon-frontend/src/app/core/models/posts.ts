@@ -1,7 +1,12 @@
 import { User } from "./user";
-export interface Post{
-    user:User,
-    content:string,
-    created_at:string
 
+export interface Post {
+    id: number,
+    user: User,
+    content: string,
+    created_at: string,
+    image?: string,
+    likes_count: number,
+    caption: string,
+    comments_count: number
 }

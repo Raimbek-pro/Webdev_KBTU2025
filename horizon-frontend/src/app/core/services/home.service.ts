@@ -7,17 +7,14 @@ import { Post } from '../models/posts';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class HomeService {
 
   private BASE_URL = 'http://localhost:8000/api/home'
 
   constructor(private http: HttpClient) {
   }
 
- 
-
   getPosts():Observable<Post[]>{
     return this.http.get<Post[]>(this.BASE_URL)
   }
-
 }
