@@ -248,11 +248,18 @@ export class NewPostComponent {
   }
 
   submitPost() {
-    // Здесь будет логика отправки поста на сервер
-    console.log('Post submitted:', {
+    const postData = {
       image: this.selectedImage,
       title: this.postTitle,
       description: this.postDescription
-    });
+    };
+
+    
+    this.homeService.createPost(postData).subscribe(
+      (response) => {
+        console.log('Post submitted successfully:', response);
+       
+      }
+    );
   }
 } 

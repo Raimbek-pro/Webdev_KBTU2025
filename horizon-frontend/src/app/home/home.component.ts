@@ -4,7 +4,7 @@ import { Post } from '../core/models/posts';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentsModalComponent } from '../core/components/comments-modal/comments-modal.component';
-
+import { Comment } from '../core/models/comment'; 
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -17,7 +17,7 @@ import { CommentsModalComponent } from '../core/components/comments-modal/commen
             <div class="profile-pic"></div>
             <span class="username">{{post.user?.username}}</span>
           </div>
-          <img [src]="post.image" class="post-image" alt="Post image">
+          <img [src]="getImageUrl(post.image)" class="post-image" alt="Post image">
           <div class="post-actions">
             <button class="action-btn">
               <i class="far fa-heart"></i>
@@ -130,6 +130,9 @@ import { CommentsModalComponent } from '../core/components/comments-modal/commen
 })
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
+  selectedPostComments: Comment[] = [];
+selectedPostId: number | null = null;
+newComment: string = '';
   isCommentsModalOpen = false;
   selectedPostImage = '';
 
@@ -144,11 +147,37 @@ export class HomeComponent implements OnInit {
 
   openComments(post: Post) {
     this.selectedPostImage = post.image || '';
+    this.selectedPostId = post.id;
     this.isCommentsModalOpen = true;
+    
+    this.homeService.getComments(post.id).subscribe((comments: Comment[]) => {
+      this.selectedPostComments = comments;
+    });
   }
 
+  submitComment() {
+    if (this.selectedPostId && this.newComment.trim()) {
+      const commentData = {
+        post: this.selectedPostId,
+        content: this.newComment
+     
+      };
+  
+      this.homeService.createComment(commentData)
+        .subscribe((comment: Comment) => {
+          this.selectedPostComments.push(comment);
+          this.newComment = '';
+        });
+    }
+  }
   closeCommentsModal() {
     this.isCommentsModalOpen = false;
     this.selectedPostImage = '';
+    this.selectedPostId = null;
+    this.selectedPostComments = [];
+    this.newComment = '';
+  }
+  getImageUrl(imagePath: string): string {
+    return imagePath ? `http://localhost:8000/media/${imagePath}` : '';
   }
 }
