@@ -17,7 +17,7 @@ import { Comment } from '../core/models/comment';
             <div class="profile-pic"></div>
             <span class="username">{{post.user?.username}}</span>
           </div>
-          <img [src]="getImageUrl(post.image)" class="post-image" alt="Post image">
+          <img [src]="" class="post-image" alt="Post image">
           <div class="post-actions">
             <button class="action-btn">
               <i class="far fa-heart"></i>
@@ -40,11 +40,16 @@ import { Comment } from '../core/models/comment';
       </div>
     </div>
 
-    <app-comments-modal 
-      [isOpen]="isCommentsModalOpen" 
-      [postImage]="selectedPostImage"
-      (closeModalEvent)="closeCommentsModal()">
-    </app-comments-modal>
+<app-comments-modal 
+  [isOpen]="isCommentsModalOpen"
+  [postImage]="selectedPostImage"
+  [comments]="selectedPostComments"
+  [newComment]="newComment"
+ [selectedPostId]="selectedPostId"
+  (newCommentChange)="newComment = $event"
+  (commentSubmit)="submitComment()"
+  (closeModalEvent)="closeCommentsModal()">
+</app-comments-modal>
   `,
   styles: [`
     .feed-container {
@@ -159,7 +164,7 @@ newComment: string = '';
     if (this.selectedPostId && this.newComment.trim()) {
       const commentData = {
         post: this.selectedPostId,
-        content: this.newComment
+        text: this.newComment
      
       };
   

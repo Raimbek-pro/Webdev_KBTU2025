@@ -6,6 +6,6 @@ export interface Comment {
   id?: number;
   content: string;
   post: number | Post;
-  user?: number | User;
+  user?:  User;
   created_at?: string;
 }

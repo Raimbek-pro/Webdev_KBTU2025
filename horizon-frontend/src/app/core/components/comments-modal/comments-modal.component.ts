@@ -1,11 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { User } from '../../models/user';
+import { HomeService } from '../../services/home.service';
+import { Comment } from '../../models/comment';
 @Component({
+  
   selector: 'app-comments-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CommentsModalComponent],
   template: `
     <div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
@@ -22,20 +25,21 @@ import { FormsModule } from '@angular/forms';
           <div class="comments-list">
             <div class="comment" *ngFor="let comment of comments">
               <div class="comment-avatar">
-                <img [src]="comment.user.profile_picture || 'assets/default-avatar.png'" alt="User avatar">
+              <img [src]="comment.user?.profile_picture || 'assets/default-avatar.png'" alt="User avatar">
+<span class="username">{{comment.user?.username}}</span>
               </div>
               <div class="comment-content">
                 <div class="comment-header">
-                  <span class="username">{{comment.user.username}}</span>
+                  <span class="username">{{comment.user?.username}}</span>
                   <span class="timestamp">{{comment.created_at | date:'MMM d, yyyy'}}</span>
                 </div>
-                <p class="comment-text">{{comment.text}}</p>
+                <p class="comment-text">{{comment.content}}</p>
               </div>
             </div>
           </div>
           <div class="add-comment">
-            <input type="text" [(ngModel)]="newComment" placeholder="Add a comment...">
-            <button [disabled]="!newComment" (click)="addComment()">Post</button>
+        <input type="text" [(ngModel)]="newComment" placeholder="Add a comment..." />
+<button  (click)="addComment()">Post</button>
           </div>
         </div>
       </div>
@@ -186,45 +190,35 @@ import { FormsModule } from '@angular/forms';
   `]
 })
 export class CommentsModalComponent {
+  @Input() selectedPostId: number | null = null;
+  @Input() comments: Comment[] = [];
+@Input() newComment: string = '';
+@Output() newCommentChange = new EventEmitter<string>();
   @Input() isOpen = false;
   @Input() postImage = '';
   @Output() closeModalEvent = new EventEmitter<void>();
   
-  newComment = '';
-  comments = [
-    {
-      user: {
-        username: 'user1',
-        profile_picture: null
-      },
-      text: 'Nice post!',
-      created_at: new Date()
-    },
-    {
-      user: {
-        username: 'user2',
-        profile_picture: null
-      },
-      text: 'Great photo!',
-      created_at: new Date()
-    }
-  ];
+  selectedPostComments: Comment[] = [];
+    constructor(private homeService: HomeService) {}
 
   closeModal() {
     this.closeModalEvent.emit();
   }
 
   addComment() {
-    if (this.newComment.trim()) {
-      this.comments.push({
-        user: {
-          username: 'current_user',
-          profile_picture: null
-        },
-        text: this.newComment,
-        created_at: new Date()
-      });
-      this.newComment = '';
+    console.log('Post button clicked!');
+if (this.selectedPostId && this.newComment.trim()) {
+      const commentData = {
+        post: this.selectedPostId,
+        text: this.newComment
+     
+      };
+  
+      this.homeService.createComment(commentData)
+        .subscribe((comment: Comment) => {
+          this.selectedPostComments.push(comment);
+          this.newComment = '';
+        });
     }
   }
 } 
