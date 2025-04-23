@@ -1,13 +1,12 @@
 from django.db import models
 
 from users.models import User
-#from like.models import  Like
 
 class Post(models.Model):
     user = models.ForeignKey(User, related_name='posts', on_delete=models.SET_NULL, null=True)
+    title = models.TextField()
     content = models.TextField()
-    image = models.ImageField(upload_to='post_images/', null=True, blank=True)  # NEW: Image support
-  #  likes= models.ForeignKey(Like,related_name='post',on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

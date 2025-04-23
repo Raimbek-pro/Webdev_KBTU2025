@@ -2,7 +2,12 @@ from rest_framework import serializers
 
 from models import Like
 
+# like/serializers.py
+from rest_framework import serializers
+from .models import Like
+
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
-        fields = "__all__"
+        fields = ['id', 'post', 'user']
+        read_only_fields = ['id', 'user']

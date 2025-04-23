@@ -14,7 +14,7 @@ class PostCreate(APIView):
     def post(self,request):
         serializer=PostSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(user=request.user)
         return Response(serializer.data)
 
 
@@ -34,3 +34,4 @@ class CommentViewSet(viewsets.ReadOnlyModelViewSet):
         if post_id is not None:
             return self.queryset.filter(post__id=post_id)
         return self.queryset
+
