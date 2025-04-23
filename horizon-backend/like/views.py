@@ -1,4 +1,4 @@
-from rest_framework import permissions
+from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Like
@@ -14,4 +14,4 @@ class ToggleLikeView(APIView):
             return Response({'liked': False})
         like = Like(post_id=post_id, user=user)
         like.save()
-        return Response({'liked': True})
+        return Response({'liked': True, 'likes_count': Like.objects.filter(post_id=post_id).count()})

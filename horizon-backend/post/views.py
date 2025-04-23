@@ -6,9 +6,18 @@ from rest_framework.response import Response
 from .models import Comment
 from post.serializers import CommentSerializer
 from rest_framework import status
+from rest_framework import viewsets
+from .models import Post
+from post.serializers import PostSerializer
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    def get_serializer_context(self):
+        ctx = super().get_serializer_context()
+        ctx['request'] = self.request
+        return ctx
 
 class PostCreate(APIView):
     def post(self,request):
