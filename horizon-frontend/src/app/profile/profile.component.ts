@@ -77,7 +77,7 @@ import { Router } from '@angular/router';
       width: 150px;
       height: 150px;
     }
-    
+
     .profile-avatar {
       width: 100%;
       height: 100%;
@@ -214,7 +214,6 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-    // Здесь будет логика сохранения профиля
     this.isEditMode = false;
   }
 
@@ -232,4 +231,4 @@ export class ProfileComponent {
     this.authService.logout()
     this.router.navigate(['/login']);
   }
-} 
+}

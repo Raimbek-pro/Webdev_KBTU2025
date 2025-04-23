@@ -2,31 +2,48 @@
   <div class="posts" *ngFor="let post of posts">
     <div class="post">
       <div class="post-header">
-        <div class="profile-pic"></div>
-        <span class="username">{{post.user?.username}}</span>
+        <img
+          [src]="post.user?.profile_picture || 'assets/default-avatar.png'"
+          class="profile-pic"
+          alt="{{ post.user?.username }}'s avatar">
+        <span class="username">{{ post.user?.username }}</span>
       </div>
-      <img [src]="" class="post-image" alt="Post image">
+
+      <img [src]="post.image" class="post-image" alt="Post image">
+
       <div class="post-actions">
-        <button class="action-btn">
-          <i class="far fa-heart"></i>
-        </button>
-        <button class="action-btn" (click)="openComments(post)">
-          <i class="far fa-comment"></i>
-        </button>
+        <button class="action-btn"><i class="far fa-heart"></i></button>
+        <button class="action-btn" (click)="openComments(post)"><i class="far fa-comment"></i></button>
       </div>
+
       <div class="post-info">
-        <p class="likes">{{post.likes_count}} likes</p>
+        <p class="likes">{{ post.likes_count }} likes</p>
+
         <p class="caption">
-          <strong>{{post.user?.username}}</strong> {{post.caption}}
+          <strong>{{ post.title }}</strong>
+          <br>
+          <span>{{ post.content }}</span>
         </p>
-        <p class="comments" *ngIf="post.comments_count > 0" (click)="openComments(post)">
-          View all {{post.comments_count}} comments
+
+        <ng-container *ngIf="!post.title">
+          <p class="caption">
+            <span>{{ post.content }}</span>
+          </p>
+        </ng-container>
+
+        <p
+          class="comments"
+          *ngIf="post.comments_count > 0"
+          (click)="openComments(post)">
+          View all {{ post.comments_count }} comments
         </p>
-        <p class="timestamp">{{post.created_at | date:'MMM d, yyyy'}}</p>
+
+        <p class="timestamp">{{ post.created_at | date:'MMM d, yyyy' }}</p>
       </div>
     </div>
   </div>
 </div>
+
 
 <app-comments-modal
   [isOpen]="isCommentsModalOpen"

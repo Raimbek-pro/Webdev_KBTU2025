@@ -12,6 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
   }
+
   isLoggedIn = false;
 
   register(credentials: {
@@ -24,15 +25,15 @@ export class AuthService {
   }
 
   login(credentials: { username: string, password: string }): Observable<string> {
-    this.isLoggedIn=true
-    return this.http.post<string>(this.BASE_URL + '/login', credentials, {withCredentials:true}).pipe(
+    this.isLoggedIn = true
+    return this.http.post<string>(this.BASE_URL + '/login', credentials, {withCredentials: true}).pipe(
       tap((token: string) => {
         localStorage.setItem('token', token); // store JWT
       })
-    
     );
 
   }
+
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
     return !!token; // true if token exists
@@ -40,5 +41,6 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    this.http.post(this.BASE_URL + "/logout", "", {withCredentials: true}).subscribe();
   }
 }
