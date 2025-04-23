@@ -1,11 +1,10 @@
-
-import { User } from './user';
-import { Post } from './posts';
+import {User} from './user';
+import {Post} from './post';
 
 export interface Comment {
   id?: number;
- text: string;
+  content: string;
   post: number | Post;
-  user?:  User;
+  user?: User;
   created_at?: string;
 }

@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, tap} from 'rxjs';
 import {User} from '../models/user';
-import { Post } from '../models/posts';
+import { Post } from '../models/post';
 import { Comment } from '../models/comment'
 @Injectable({
   providedIn: 'root'
@@ -36,7 +36,7 @@ export class HomeService {
     return this.http.get<Comment[]>(`${this.BASE_URL}/comments?post=${postId}`);
   }
 
-  
+
   createComment(commentData: { post: number, content: string, user?: number }): Observable<Comment> {
     return this.http.post<Comment>(`${this.BASE_URL}/createcomment`, commentData).pipe(
       tap(response => {
