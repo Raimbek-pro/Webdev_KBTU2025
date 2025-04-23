@@ -5,6 +5,7 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {CommentsModalComponent} from '../core/components/comments-modal/comments-modal.component';
 import {Comment} from '../core/models/comment';
+import {LikeService} from '../core/services/like.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,8 @@ export class HomeComponent implements OnInit {
   isCommentsModalOpen = false;
   selectedPostImage = '';
 
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: HomeService,
+  private likeService: LikeService) {
   }
 
   ngOnInit(): void {
@@ -67,6 +69,10 @@ export class HomeComponent implements OnInit {
   }
 
   onToggleLike(post: Post) {
-
+    this.likeService.toggleLike(post.id).subscribe(res => {
+      post.liked = res.liked;
+      post.likes_count = res.likes_count;
+    });
   }
+
 }

@@ -12,7 +12,9 @@
       <img [src]="post.image" class="post-image" alt="Post image">
 
       <div class="post-actions">
-        <button class="action-btn"><i class="far fa-heart"></i></button>
+        <button class="action-btn" (click)="onToggleLike(post)">
+          <i [class.fas]="post.liked" [class.far]="!post.liked" class="fa-heart"></i>
+        </button>
         <button class="action-btn" (click)="openComments(post)"><i class="far fa-comment"></i></button>
       </div>
 
