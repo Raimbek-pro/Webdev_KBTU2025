@@ -4,7 +4,7 @@ import { Post } from './posts';
 
 export interface Comment {
   id?: number;
-  content: string;
+ text: string;
   post: number | Post;
   user?:  User;
   created_at?: string;

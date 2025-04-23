@@ -156,6 +156,7 @@ newComment: string = '';
     this.isCommentsModalOpen = true;
     
     this.homeService.getComments(post.id).subscribe((comments: Comment[]) => {
+      console.log(comments);
       this.selectedPostComments = comments;
     });
   }
@@ -164,7 +165,7 @@ newComment: string = '';
     if (this.selectedPostId && this.newComment.trim()) {
       const commentData = {
         post: this.selectedPostId,
-        text: this.newComment
+        content: this.newComment
      
       };
   

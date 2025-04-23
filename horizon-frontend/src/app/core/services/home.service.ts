@@ -37,7 +37,7 @@ export class HomeService {
   }
 
   
-  createComment(commentData: { post: number, text: string, user?: number }): Observable<Comment> {
+  createComment(commentData: { post: number, content: string, user?: number }): Observable<Comment> {
     return this.http.post<Comment>(`${this.BASE_URL}/createcomment`, commentData).pipe(
       tap(response => {
         console.log('Comment created successfully', response);

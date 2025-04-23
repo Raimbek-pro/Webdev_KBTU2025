@@ -198,7 +198,7 @@ export class CommentsModalComponent {
   @Input() postImage = '';
   @Output() closeModalEvent = new EventEmitter<void>();
   
-  selectedPostComments: Comment[] = [];
+  
     constructor(private homeService: HomeService) {}
 
   closeModal() {
@@ -210,15 +210,16 @@ export class CommentsModalComponent {
 if (this.selectedPostId && this.newComment.trim()) {
       const commentData = {
         post: this.selectedPostId,
-        text: this.newComment
+        content: this.newComment
      
       };
   
       this.homeService.createComment(commentData)
         .subscribe((comment: Comment) => {
-          this.selectedPostComments.push(comment);
+          this.comments.push(comment); 
           this.newComment = '';
         });
     }
   }
+  
 } 
