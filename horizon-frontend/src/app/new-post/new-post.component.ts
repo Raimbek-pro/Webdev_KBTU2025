@@ -221,12 +221,13 @@ export class NewPostComponent {
   selectedImage: string | null = null;
   postTitle = '';
   postDescription = '';
-
+  imageFile: File | null = null;
   constructor(private homeService: HomeService) {}
 
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
+      this.imageFile = file; // store the actual file
       const reader = new FileReader();
       reader.onload = (e) => {
         this.selectedImage = e.target?.result as string;
@@ -248,17 +249,22 @@ export class NewPostComponent {
   }
 
   submitPost() {
-    const postData = {
-      image: this.selectedImage,
-      title: this.postTitle,
-      description: this.postDescription
-    };
-
-    
-    this.homeService.createPost(postData).subscribe(
+    if (!this.imageFile) {
+      console.error('No file selected');
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append('image', this.imageFile); 
+    formData.append('title', this.postTitle);
+    formData.append('description', this.postDescription);
+  
+    this.homeService.createPost(formData).subscribe(
       (response) => {
         console.log('Post submitted successfully:', response);
-       
+      },
+      (error) => {
+        console.error('Error submitting post:', error);
       }
     );
   }
