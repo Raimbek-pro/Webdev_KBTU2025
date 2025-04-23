@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SearchService } from '../core/services/search.service';
-import { Post } from '../core/models/posts';
+import { Post } from '../core/models/post';
 
 @Component({
   selector: 'app-search',
@@ -11,9 +11,9 @@ import { Post } from '../core/models/posts';
   template: `
     <div class="search-container">
       <div class="search-box">
-        <input 
-          type="text" 
-          [(ngModel)]="searchQuery" 
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
           (input)="onSearch()"
           placeholder="Search posts..."
         >
@@ -133,4 +133,4 @@ export class SearchComponent {
       this.searchResults = results;
     });
   }
-} 
+}

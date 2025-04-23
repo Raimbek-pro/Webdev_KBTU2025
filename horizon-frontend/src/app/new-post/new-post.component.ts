@@ -25,7 +25,6 @@ import { HomeService } from '../core/services/home.service';
       </div>
 
       <div class="post-content">
-        <!-- Step 1: Choose Photo -->
         <div *ngIf="currentStep === 1" class="step-content">
           <div class="upload-area" (click)="fileInput.click()" [class.has-image]="selectedImage">
             <input #fileInput type="file" (change)="onFileSelected($event)" accept="image/*" hidden>
@@ -40,7 +39,6 @@ import { HomeService } from '../core/services/home.service';
           </button>
         </div>
 
-        <!-- Step 2: Title -->
         <div *ngIf="currentStep === 2" class="step-content">
           <div class="form-group">
             <label>Post Title</label>
@@ -52,7 +50,6 @@ import { HomeService } from '../core/services/home.service';
           </div>
         </div>
 
-        <!-- Step 3: Description -->
         <div *ngIf="currentStep === 3" class="step-content">
           <div class="form-group">
             <label>Description</label>
@@ -253,12 +250,12 @@ export class NewPostComponent {
       console.error('No file selected');
       return;
     }
-  
+
     const formData = new FormData();
-    formData.append('image', this.imageFile); 
+    formData.append('image', this.imageFile);
     formData.append('title', this.postTitle);
     formData.append('description', this.postDescription);
-  
+
     this.homeService.createPost(formData).subscribe(
       (response) => {
         console.log('Post submitted successfully:', response);
@@ -268,4 +265,4 @@ export class NewPostComponent {
       }
     );
   }
-} 
+}

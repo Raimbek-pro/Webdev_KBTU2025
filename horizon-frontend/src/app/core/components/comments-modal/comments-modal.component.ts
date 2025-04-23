@@ -5,10 +5,10 @@ import { User } from '../../models/user';
 import { HomeService } from '../../services/home.service';
 import { Comment } from '../../models/comment';
 @Component({
-  
+
   selector: 'app-comments-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule, CommentsModalComponent],
+  imports: [CommonModule, FormsModule],
   template: `
     <div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
@@ -197,8 +197,8 @@ export class CommentsModalComponent {
   @Input() isOpen = false;
   @Input() postImage = '';
   @Output() closeModalEvent = new EventEmitter<void>();
-  
-  
+
+
     constructor(private homeService: HomeService) {}
 
   closeModal() {
@@ -211,15 +211,15 @@ if (this.selectedPostId && this.newComment.trim()) {
       const commentData = {
         post: this.selectedPostId,
         content: this.newComment
-     
+
       };
-  
+
       this.homeService.createComment(commentData)
         .subscribe((comment: Comment) => {
-          this.comments.push(comment); 
+          this.comments.push(comment);
           this.newComment = '';
         });
     }
   }
-  
-} 
+
+}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Post } from '../models/posts';
+import { Post } from '../models/post';
 
 @Injectable({
   providedIn: 'root'
@@ -58,11 +58,11 @@ export class SearchService {
     if (!query.trim()) {
       return of([]);
     }
-    
-    const results = this.testPosts.filter(post => 
+
+    const results = this.testPosts.filter(post =>
       post.caption.toLowerCase().includes(query.toLowerCase())
     );
-    
+
     return of(results);
   }
-} 
+}
