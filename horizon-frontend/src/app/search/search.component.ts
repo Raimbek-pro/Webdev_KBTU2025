@@ -29,7 +29,7 @@ import { Post } from '../core/models/post';
           <img [src]="post.image" class="post-image" alt="Post image">
           <div class="post-info">
             <p class="caption">
-              <strong>{{post.user?.username}}</strong> {{post.caption}}
+              <strong>{{post.user?.username}}</strong>
             </p>
             <p class="timestamp">{{post.created_at | date:'MMM d, yyyy'}}</p>
           </div>

@@ -254,7 +254,7 @@ export class NewPostComponent {
     const formData = new FormData();
     formData.append('image', this.imageFile);
     formData.append('title', this.postTitle);
-    formData.append('description', this.postDescription);
+    formData.append('content', this.postDescription);
 
     this.homeService.createPost(formData).subscribe(
       (response) => {

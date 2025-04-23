@@ -1,26 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { HomeService } from '../core/services/home.service';
-import { Post } from '../core/models/post';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { CommentsModalComponent } from '../core/components/comments-modal/comments-modal.component';
-import { Comment } from '../core/models/comment';
+import {Component, OnInit} from '@angular/core';
+import {HomeService} from '../core/services/home.service';
+import {Post} from '../core/models/post';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {CommentsModalComponent} from '../core/components/comments-modal/comments-modal.component';
+import {Comment} from '../core/models/comment';
+
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [CommonModule, FormsModule, CommentsModalComponent],
-  templateUrl:'home.component.html',
-  styleUrl:'home.component.css'
+  templateUrl: 'home.component.html',
+  styleUrl: 'home.component.css'
 })
 export class HomeComponent implements OnInit {
   posts: Post[] = [];
   selectedPostComments: Comment[] = [];
-selectedPostId: number | null = null;
-newComment: string = '';
+  selectedPostId: number | null = null;
+  newComment: string = '';
   isCommentsModalOpen = false;
   selectedPostImage = '';
 
-  constructor(private homeService: HomeService) {}
+  constructor(private homeService: HomeService) {
+  }
 
   ngOnInit(): void {
     this.homeService.getPosts().subscribe((response: Post[]) => {
@@ -55,6 +57,7 @@ newComment: string = '';
         });
     }
   }
+
   closeCommentsModal() {
     this.isCommentsModalOpen = false;
     this.selectedPostImage = '';
@@ -62,7 +65,8 @@ newComment: string = '';
     this.selectedPostComments = [];
     this.newComment = '';
   }
-  getImageUrl(imagePath: string): string {
-    return imagePath ? `http://localhost:8000/media/${imagePath}` : '';
+
+  onToggleLike(post: Post) {
+
   }
 }
