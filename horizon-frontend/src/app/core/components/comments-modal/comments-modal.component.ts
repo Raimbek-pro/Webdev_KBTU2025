@@ -61,12 +61,13 @@ import { Comment } from '../../models/comment';
 
     .modal-content {
       background: white;
-      width: 80%;
-      max-width: 900px;
-      height: 80vh;
+      width: 65%;
+      max-width: 750px;
+      height: 65vh;
       display: flex;
       border-radius: 8px;
       overflow: hidden;
+      position: relative;
     }
 
     .modal-header {
@@ -74,20 +75,31 @@ import { Comment } from '../../models/comment';
       top: 0;
       left: 0;
       right: 0;
-      padding: 16px;
-      border-bottom: 1px solid #dbdbdb;
+      padding: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background: white;
+      z-index: 2;
+    }
+
+    .modal-header h3 {
+      font-size: 16px;
+      margin: 0;
     }
 
     .close-btn {
       position: absolute;
-      left: 16px;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 16px;
       cursor: pointer;
+      color: #262626;
+      z-index: 3;
+      padding: 6px;
     }
 
     .post-preview {
@@ -96,6 +108,7 @@ import { Comment } from '../../models/comment';
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-top: 0;
     }
 
     .post-preview img {
@@ -115,6 +128,7 @@ import { Comment } from '../../models/comment';
       flex: 1;
       overflow-y: auto;
       padding: 16px;
+      margin-top: 45px;
     }
 
     .comment {
