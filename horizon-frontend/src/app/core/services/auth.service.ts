@@ -29,8 +29,25 @@ export class AuthService {
       tap((response) => {
         console.log('Login response:', response);
         localStorage.setItem('token', response.token);
+        // После успешного входа получаем данные пользователя
+        this.getCurrentUser().subscribe(user => {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+        });
       })
     );
+  }
+
+  getCurrentUser(): Observable<User> {
+    return this.http.get<User>(this.BASE_URL + '/user', {withCredentials: true}).pipe(
+      tap(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      })
+    );
+  }
+
+  getStoredUser(): User | null {
+    const userStr = localStorage.getItem('currentUser');
+    return userStr ? JSON.parse(userStr) : null;
   }
 
   isAuthenticated(): boolean {
@@ -40,6 +57,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('currentUser');
     this.http.post(this.BASE_URL + "/logout", "", {withCredentials: true}).subscribe();
   }
 }
