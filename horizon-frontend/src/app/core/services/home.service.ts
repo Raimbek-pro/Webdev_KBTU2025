@@ -28,12 +28,12 @@ export class HomeService {
   }
 
   getComments(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.BASE_URL}/comments?post=${postId}`);
+    return this.http.get<Comment[]>(`${this.BASE_URL}/comments?post=${postId}`, {withCredentials: true});
   }
 
 
   createComment(commentData: { post: number, content: string, user?: number }): Observable<Comment> {
-    return this.http.post<Comment>(`${this.BASE_URL}/createcomment`, commentData).pipe(
+    return this.http.post<Comment>(`${this.BASE_URL}/createcomment`, commentData, {withCredentials: true}).pipe(
       tap(response => {
         console.log('Comment created successfully', response);
       })
