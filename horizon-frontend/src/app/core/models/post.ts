@@ -8,5 +8,6 @@ export interface Post {
   created_at: string,
   image?: string,
   likes_count: number,
-  comments_count: number
+  comments_count: number,
+  liked: boolean
 }
