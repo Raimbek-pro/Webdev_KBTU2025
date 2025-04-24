@@ -1,8 +1,8 @@
-from rest_framework import viewsets
-from .models import Post
-from post.serializers import PostSerializer
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from horizon_backend.authentication import JWTAuthenticationFromCookie
 from .models import Comment
 from post.serializers import CommentSerializer
 from rest_framework import status
@@ -28,10 +28,15 @@ class PostCreate(APIView):
 
 
 class CommentCreate(APIView):
+    authentication_classes = [JWTAuthenticationFromCookie]
+    permission_classes     = [IsAuthenticated]
+
     def post(self, request):
         serializer = CommentSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        user = request.user
+        print(user)
+        serializer.save(user = user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
 class CommentViewSet(viewsets.ReadOnlyModelViewSet):
