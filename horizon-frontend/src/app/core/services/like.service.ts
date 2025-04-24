@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 interface ToggleLikeResponse {
@@ -15,7 +15,7 @@ export class LikeService {
     return this.http.post<ToggleLikeResponse>(
       `http://localhost:8000/api/posts/${postId}/like/`,
       {},
-      { withCredentials: true }
+      {withCredentials: true}
     );
   }
 }

@@ -24,14 +24,13 @@ export class AuthService {
     return this.http.post<User>(this.BASE_URL + '/register', credentials, {withCredentials: true}).pipe();
   }
 
-  login(credentials: { username: string, password: string }): Observable<string> {
-    this.isLoggedIn = true
-    return this.http.post<string>(this.BASE_URL + '/login', credentials, {withCredentials: true}).pipe(
-      tap((token: string) => {
-        localStorage.setItem('token', token); // store JWT
+  login(credentials: { username: string, password: string }): Observable<any> {
+    return this.http.post<any>(this.BASE_URL + '/login', credentials, {withCredentials:true}).pipe(
+      tap((response) => {
+        console.log('Login response:', response);
+        localStorage.setItem('token', response.token);
       })
     );
-
   }
 
   isAuthenticated(): boolean {
