@@ -1,4 +1,4 @@
-<app-sidebar></app-sidebar>
-<div class="main-content">
+<app-sidebar *ngIf="authService.isAuthenticated()"></app-sidebar>
+<div class="main-content" [ngClass]="{'full-width': !authService.isAuthenticated()}">
   <router-outlet></router-outlet>
 </div>
