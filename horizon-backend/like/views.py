@@ -4,8 +4,6 @@ from rest_framework.response import Response
 from .models import Like
 
 class ToggleLikeView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-
     def post(self, request, post_id):
         user = request.user
         existing = Like.objects.filter(post_id=post_id, user=user)
