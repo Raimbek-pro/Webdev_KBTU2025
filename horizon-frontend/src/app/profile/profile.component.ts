@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../core/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from '../core/models/user';
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -198,16 +200,30 @@ import { Router } from '@angular/router';
     }
   `]
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService, private router:Router) {
   }
-  username = 'username';
+
+  username = '';
   bio = 'This is my bio';
   postsCount = 0;
   followersCount = 0;
   followingCount = 0;
   isEditMode = false;
   profilePicture: string | null = null;
+
+  ngOnInit() {
+    // Получаем данные пользователя при загрузке компонента
+    this.authService.getCurrentUser().subscribe(
+      (user: User) => {
+        this.username = user.username;
+        this.profilePicture = user.profile_picture || null;
+      },
+      error => {
+        console.error('Error fetching user data:', error);
+      }
+    );
+  }
 
   toggleEditMode() {
     this.isEditMode = !this.isEditMode;
@@ -227,8 +243,9 @@ export class ProfileComponent {
       reader.readAsDataURL(file);
     }
   }
-  logout(){
-    this.authService.logout()
+
+  logout() {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
