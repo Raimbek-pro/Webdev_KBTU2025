@@ -25,10 +25,10 @@ export class AuthService {
   }
 
   login(credentials: { username: string, password: string }): Observable<any> {
-    return this.http.post<any>(this.BASE_URL + '/login', credentials).pipe(
+    return this.http.post<any>(this.BASE_URL + '/login', credentials, {withCredentials:true}).pipe(
       tap((response) => {
-        console.log('Login response:', response); 
-        localStorage.setItem('token', response.token); 
+        console.log('Login response:', response);
+        localStorage.setItem('token', response.token);
       })
     );
   }
